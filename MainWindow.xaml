@@ -20,27 +20,22 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-    <!--
         <StackPanel>
-            <Button Content="Add Task to JumpList" Click="AddTask" />
-            <Button Content="Clear Jump List" Click="ClearJumpList"/>
-            <Button Content="Set New Jump List" Click="SetNewJumpList" />
-            <TextBox Name="textRdp" />
-            <Button Content="Add RDP Connection" Click="AddRdpConnection" />
-        </StackPanel>
-        -->
-        <GroupBox Margin="20" Padding="10" Grid.Column="1">
-            <GroupBox.Header>
-                <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="/WpfTutorialSamples;component/Images/group.png" Margin="3,0" />-->
-                    <TextBlock FontWeight="Bold">Remote Desktop Connection</TextBlock>
+            <GroupBox Margin="20" Padding="10" Grid.Column="1">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Image Source="/WpfTutorialSamples;component/Images/group.png" Margin="3,0" />-->
+                        <TextBlock FontWeight="Bold">Remote Desktop Connection</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <TextBlock>Server:</TextBlock>
+                    <TextBox Name="textRdp" />
+                    <Button Margin="0,20" Click="AddRdpConnection">Add</Button>
                 </StackPanel>
-            </GroupBox.Header>
-            <StackPanel>
-                <TextBlock>Server:</TextBlock>
-                <TextBox Name="textRdp" />
-                <Button Margin="0,20," Click="AddRdpConnection">Add</Button>
-            </StackPanel>
-        </GroupBox>
+            </GroupBox>
+
+            <Button Click="ClearJumpList">Get rid of `em</Button>
+        </StackPanel>
     </Grid>
 </Window>
