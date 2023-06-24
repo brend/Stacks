@@ -35,7 +35,10 @@
                 </StackPanel>
             </GroupBox>
 
-            <Button Click="ClearJumpList">Get rid of `em</Button>
+            <ListBox Name="listTasks" DisplayMemberPath="Title"/>
+
+            <Button Click="RemoveTask_Click">Get rid of it</Button>
+            <Button Click="ClearJumpList_Click">Get rid of `em</Button>
         </StackPanel>
     </Grid>
 </Window>

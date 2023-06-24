@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Shell;
 
 using Path = System.IO.Path;
@@ -26,30 +14,49 @@ namespace Stacks
         public MainWindow()
         {
             InitializeComponent();
+            RefreshList();
         }
 
-        private void AddTask(object sender, RoutedEventArgs e)
+        private void RefreshList()
         {
-            // Configure a new JumpTask.
-            JumpTask jumpTask1 = new JumpTask();
-            // Get the path to Calculator and set the JumpTask properties.
-            jumpTask1.ApplicationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe");
-            jumpTask1.IconResourcePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe");
-            jumpTask1.Title = "Calculator";
-            jumpTask1.Description = "Open Calculator.";
-            jumpTask1.CustomCategory = "User Added Tasks";
-            // Get the JumpList from the application and update it.
-            JumpList jumpList1 = JumpList.GetJumpList(App.Current);
-            jumpList1.JumpItems.Add(jumpTask1);
-            JumpList.AddToRecentCategory(jumpTask1);
-            jumpList1.Apply();
+            listTasks.Items.Clear();
+
+            JumpList jumpList = JumpList.GetJumpList(App.Current);
+
+            foreach (var item in jumpList.JumpItems)
+            {
+                listTasks.Items.Add(item);                
+            }
         }
-        private void ClearJumpList(object sender, RoutedEventArgs e)
+
+        private void SaveList()
         {
-            JumpList jumpList1 = JumpList.GetJumpList(App.Current);
-            jumpList1.JumpItems.Clear();
-            jumpList1.Apply();
+            ClearJumpList();
+
+            var jumpList = JumpList.GetJumpList(App.Current);
+
+            foreach (JumpTask task in listTasks.Items)
+            {
+                jumpList.JumpItems.Add(task);
+            }
+
+            jumpList.Apply();
         }
+
+        private void ClearJumpList()
+        {
+            var jumpList = JumpList.GetJumpList(App.Current);
+
+            jumpList.JumpItems.Clear();
+            jumpList.Apply();
+        }
+
+        private void ClearJumpList_Click(object sender, RoutedEventArgs e)
+        {
+            ClearJumpList();
+            RefreshList();
+        }
+
         private void SetNewJumpList(object sender, RoutedEventArgs e)
         {
             //Configure a new JumpTask
@@ -86,6 +93,21 @@ namespace Stacks
             jumpList.JumpItems.Add(jumpTask);
             JumpList.AddToRecentCategory(jumpTask);
             jumpList.Apply();
+
+            RefreshList();
+        }
+
+        private void RemoveTask_Click(object sender, EventArgs e)
+        {
+            int index = listTasks.SelectedIndex;
+
+            if (index >= 0)
+            {
+                listTasks.Items.RemoveAt(index);
+            }
+
+            SaveList();
+            RefreshList();
         }
     }
 }
