@@ -74,6 +74,8 @@ namespace Stacks
             {
                 Title = server,
                 Description = $"Connect to {server}",
+                // IconResourcePath = @"C:\Windows\System32\shell32.dll",
+                // IconResourceIndex = 138,
                 ApplicationPath = @"%windir%\system32\mstsc.exe",
                 WorkingDirectory = @"%windir%\system32",
                 Arguments = $"/v:{server}",
